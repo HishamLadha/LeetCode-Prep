@@ -21,8 +21,37 @@ class Solution{
 
     }
 
-    withReplacement(str){
+    withReplacement(str, k){
+        let result = 0;
+        let left = 0;
+        let right = 0;
+        let hashmap = new Map()
 
+        while (right < str.length){
+            hashmap.set(str[right], (hashmap.get(str[right]) || 0) + 1);
+            
+            // Find the maximum frequency value in the hashmap
+            let maxFrequency = -Infinity;
+            for (const value of hashmap.values()) {
+            maxFrequency = Math.max(maxFrequency, value);
+            }
+
+            if (((right - left + 1) - maxFrequency) <= k){
+                result = Math.max(result, right-left+1);
+            }
+            else{
+                hashmap.set(str[left], hashmap.get(str[left]) - 1);
+                if(hashmap.get(str[left]) === 0){
+                    hashmap.delete(str[left]);
+                }
+                left += 1;
+            }
+            
+
+            right += 1;
+        }
+
+        return result;
     }
 
 }
@@ -52,6 +81,7 @@ module.exports = Solution;
 // 0 <= s.length <= 1000
 // s may consist of printable ASCII characters.
 
+/// ----------------------------------- ///
 // WithReplacement
 // Longest Repeating Character Replacement
 

@@ -38,5 +38,12 @@ describe('With Replacement', () => {
         solution = new Solution()
     })
 
+    test('should work for any string', () => {
+        const input = "AAABABB"
+        const k = 1
+        const expected = 5
+        expect(solution.withReplacement(input, k)).toEqual(expected)
+    })
+
 
 })
